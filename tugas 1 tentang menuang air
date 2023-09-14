@@ -1,0 +1,14 @@
+print("tugas 1 tentang menuang air")
+tugas 1 tentang menuang air
+print("step 1: gelas berukuran 8 liter yang terisi penuh di tuangkan ke gelas berukuran 3 liter hingga penuh jadi sisa gelas 8 liter yaitu 5 liter")
+step 1: gelas berukuran 8 liter yang terisi penuh di tuangkan ke gelas berukuran 3 liter hingga penuh jadi sisa gelas 8 liter yaitu 5 liter
+print("step 2: gelas yang ukuran 3 liter yang terisi penuh dituangkan ke gelas ukuran 5 liter jadi gelas yang ukuran 3 liter kosong dan ukuran 5 liter terisi penuh")
+step 2: gelas yang ukuran 3 liter yang terisi penuh dituangkan ke gelas ukuran 5 liter jadi gelas yang ukuran 3 liter kosong dan ukuran 5 liter terisi penuh
+print("step 3: gelas 8 liter yang berisi 5 liter dituangkan ke gelas ukuran 3 liter dan sisa gelas ukuran 8 liter yaitu 2 liter")
+step 3: gelas 8 liter yang berisi 5 liter dituangkan ke gelas ukuran 3 liter dan sisa gelas ukuran 8 liter yaitu 2 liter
+print("step 4: gelas ukuran 3 L yang terisi penuh di tuangkan ke gelas ukuran 5 L jadi gelas ukuran 3 L tersisa 1 L dan gelas ukuran 5 L terisi penuh")
+step 4: gelas ukuran 3 L yang terisi penuh di tuangkan ke gelas ukuran 5 L jadi gelas ukuran 3 L tersisa 1 L dan gelas ukuran 5 L terisi penuh
+print("step 5: gelas ukuran 5 L yang terisi penuh dituangkan ke gelas ukuran 8 L Yang berisi 2 L jadinya 7 L dan gelas ukuran 5 L kosong ")
+step 5: gelas ukuran 5 L yang terisi penuh dituangkan ke gelas ukuran 8 L Yang berisi 2 L jadinya 7 L dan gelas ukuran 5 L kosong 
+print("step 6: gelas ukuran 8 L yang berisi 7 L di tuangkan ke gelas ukuran 3 L jadi gelas ukuran 3 L terisi penuh dan gelas ukuran 8 L tersisa 4 L dan sisa air inilah yang di minta oleh anggun kepada azmi")
+step 6: gelas ukuran 8 L yang berisi 7 L di tuangkan ke gelas ukuran 3 L jadi gelas ukuran 3 L terisi penuh dan gelas ukuran 8 L tersisa 4 L dan sisa air inilah yang di minta oleh anggun kepada azmi
