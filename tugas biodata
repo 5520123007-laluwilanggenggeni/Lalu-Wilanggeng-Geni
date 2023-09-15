@@ -1,0 +1,16 @@
+print("biodata saya")
+biodata saya
+print("nama: lalu wilanggeng geni")
+nama: lalu wilanggeng geni
+print("alamat: kampung balungadang, praya, kabupaten lombok tengah")
+alamat: kampung balungadang, praya, kabupaten lombok tengah
+print("TTL: praya, 13 april 2005")
+TTL: praya, 13 april 2005
+print("status: mahasiswa")
+status: mahasiswa
+print("hobi: tilawah")
+hobi: tilawah
+print("cita-cita: menjadi orang yang bisa mem bahagiakan orang tua")
+cita-cita: menjadi orang yang bisa mem bahagiakan orang tua
+print("NIM: 5520123007")
+NIM: 5520123007
