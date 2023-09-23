@@ -1,8 +1,6 @@
-nama = "lalu wilanggeng geni"
-alamat = "kampung balungadang"
-nomertelepon = "081952612678"
-print(nama,"dari", alamat, nomertelepon)
-
-
-nama=5+2
-print(nama)
+nama=input("siapa nama anda?")
+print("hallo",nama,"semangat belajar ya!!")
+alamat=input("anda dari mana?")
+print("ooh anda dari",alamat,"jauh sekali yaaa")
+nomertelepon=input("berapa nomer telepon anda?")
+print("ooh",nomertelepon,"ini nomer telepon anda baiklah terima kasih!!")
