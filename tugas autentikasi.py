@@ -1,5 +1,5 @@
 username = input('masukkan username: ')
-password = input("masukkan password: ")
+password = int(nput("masukkan password: "))
 code_username = 'lalu wilanggeng geni'
 code_password = 123456
 
