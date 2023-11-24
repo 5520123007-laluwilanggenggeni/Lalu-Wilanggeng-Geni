@@ -1,0 +1,72 @@
+
+# Inisialisasi data awal
+data_barang = [
+    {"N0": 1, "KODE BARANG": "001", "NAMA BARANG": "NARMADA", "JUMLAH STOK": 10},
+    {"N0": 2, "KODE BARANG": "002", "NAMA BARANG": "INDOMI GRG", "JUMLAH STOK": 50},
+    {"N0": 3, "KODE BARANG": "003", "NAMA BARANG": "BUKU   ", "JUMLAH STOK": 20},
+    {"N0": 4, "KODE BARANG": "004", "NAMA BARANG": "DANCOW ", "JUMLAH STOK": 30},
+]
+
+
+# Fungsi untuk menampilkan data
+def tampilkan_stok():
+    print("N0 | KODE BARANG | NAMA BARANG | JUMLAH STOK |")
+    print("=" * 46)
+    for barang in data_barang:
+        print(
+            f"{barang['N0']}  | {barang['KODE BARANG']}         | {barang['NAMA BARANG']}     | {barang['JUMLAH STOK']}          |"
+        )
+    print("=" * 46)
+
+
+# Fungsi untuk menambah barang
+def tambah_barang():
+    nomor_baru = len(data_barang) + 1
+    kode_barang = input("Masukkan Kode Barang: ")
+    nama_barang = input("Masukkan Nama Barang: ")
+    jumlah_stok = int(input("Masukkan Jumlah Stok: "))
+
+    data_barang.append(
+        {
+            "N0": nomor_baru,
+            "KODE BARANG": kode_barang,
+            "NAMA BARANG": nama_barang,
+            "JUMLAH STOK": jumlah_stok,
+        }
+    )
+    print("Barang berhasil ditambahkan!")
+
+
+# Fungsi untuk mengupdate stok barang
+def update_stok():
+    kode_barang = input("Masukkan Kode Barang yang ingin diupdate stoknya: ")
+    jumlah_update = int(input("Masukkan Jumlah Stok yang ingin diupdate: "))
+
+    for barang in data_barang:
+        if barang["KODE BARANG"] == kode_barang:
+            barang["JUMLAH STOK"] += jumlah_update
+            print("Stok berhasil diupdate!")
+            return
+    print("Kode barang tidak ditemukan!")
+
+
+# Fungsi untuk menghapus barang
+def hapus_barang():
+    kode_barang = input("Masukkan Kode Barang yang ingin dihapus: ")
+
+    for barang in data_barang:
+        if barang["KODE BARANG"] == kode_barang:
+            data_barang.remove(barang)
+            print("Barang berhasil dihapus!")
+            return
+    print("Kode barang tidak ditemukan!")
+
+
+# Contoh penggunaan
+tampilkan_stok()
+tambah_barang()
+tampilkan_stok()
+update_stok()
+tampilkan_stok()
+hapus_barang()
+tampilkan_stok()
