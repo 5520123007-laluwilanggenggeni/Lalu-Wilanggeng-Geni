@@ -1,0 +1,240 @@
+# Inisialisasi data awal
+data_barang = [
+    {"N0": 1, "KODE BARANG": "001", "NAMA BARANG": "NARMADA", "JUMLAH STOK": 10},
+    {"N0": 2, "KODE BARANG": "002", "NAMA BARANG": "INDOMI GRG", "JUMLAH STOK": 50},
+    {"N0": 3, "KODE BARANG": "003", "NAMA BARANG": "BUKU   ", "JUMLAH STOK": 20},
+    {"N0": 4, "KODE BARANG": "004", "NAMA BARANG": "DANCOW ", "JUMLAH STOK": 30},
+]
+data_kasir = [
+    {"NO": 1, "KODE KASIR": "01", "NAMA KASIR": "SALMAN"},
+    {"NO": 2, "KODE KASIR": "02", "NAMA KASIR": "MULTAZAM"}
+]
+# FUNGSI MENU
+while True:
+    print("=================MENU==============")
+    print("1. TAMPILKAN KASIR")
+    print("2. TAMBAH KASIR")
+    print("3. HAPUS KASIR")
+    print("4. EDIT KASIR")
+    print("5. TAMPILKAN STOK")
+    print("6. TAMBAH BARANG")
+    print("7. UPDATE STOK BARANG")
+    print("8. UPDATE NAMA BARANG")
+    print("9. HAPUS BARANG")
+    print("0. EXIT")
+    print("===================================")
+    menu = input("MASUKKAN MENU YANG ANDA PILIH: ")
+    print("===================================")
+
+
+    #fungsi untuk menampilkan data kasir
+    if menu == "1":
+        def tampilkan_kasir():
+            print("="*46)
+            print("NO | KODE KASIR | NAMA KASIR |")
+            print("="*46)
+            for kasir in data_kasir:
+                print(
+                    f"{kasir['NO']}  | {kasir['KODE KASIR']}         | {kasir['NAMA KASIR']}     |"
+                )
+            print("="*46)
+        tampilkan_kasir()
+
+    elif menu == "2":
+        print("SELAMAT DATANG DI MENU TAMBAH KASIR")
+        def tampilkan_kasir():
+            print("="*46)
+            print("NO | KODE KASIR | NAMA KASIR |")
+            print("="*46)
+            for kasir in data_kasir:
+                print(
+                    f"{kasir['NO']}  | {kasir['KODE KASIR']}         | {kasir['NAMA KASIR']}     |"
+                )
+            print("="*46)
+
+        #fungsi untuk menambah kasir
+        def tambah_kasir():
+            nomor_baru = len(data_kasir) + 1
+            kode_kasir = input("masukkan kode kasir: ")
+            nama_kasir = input("masukkan nama kasir: ")
+
+            data_kasir.append(
+                {
+                    "NO": nomor_baru,
+                    "KODE KASIR": kode_kasir,
+                    "NAMA KASIR": nama_kasir
+                }
+            )
+            print("berhasil di tambahkan")
+        tampilkan_kasir()
+        tambah_kasir()
+        tampilkan_kasir()
+    elif menu == "3":
+        print("SELAMAT DATANG DI MENU HAPUS KASIR")
+        def tampilkan_kasir():
+            print("="*46)
+            print("NO | KODE KASIR | NAMA KASIR |")
+            print("="*46)
+            for kasir in data_kasir:
+                print(
+                    f"{kasir['NO']}  | {kasir['KODE KASIR']}         | {kasir['NAMA KASIR']}     |"
+                )
+            print("="*46)
+
+        #fungsi untuk menghapus kasir
+        def hapus_kasir():
+            kode_kasir = input("masukkan kode kasir: ")
+            for kasir in data_kasir:
+                if kasir["KODE KASIR"] == kode_kasir:
+                    data_kasir.remove(kasir)
+                    print("kasir berhasil dihapus")
+                    return
+            print("kode kasir tidak ditemukan!")
+        tampilkan_kasir()
+        hapus_kasir()
+        tampilkan_kasir()
+    elif menu == "4":
+        print("SELAMAT DATANG DI MENU EDIT KASIR")
+        def tampilkan_kasir():
+            print("="*46)
+            print("NO | KODE KASIR | NAMA KASIR |")
+            print("="*46)
+            for kasir in data_kasir:
+                print(
+                    f"{kasir['NO']}  | {kasir['KODE KASIR']}         | {kasir['NAMA KASIR']}     |"
+                )
+            print("="*46)
+
+        #fungsi edit kasir
+        def edit_kasir():
+            kasir_baru = input("masukkan nama kasir: ")
+            data_kasir[1]["NAMA KASIR"] = kasir_baru
+            print("kasir berhasil diedit!")
+        tampilkan_kasir()
+        edit_kasir()
+        tampilkan_kasir()
+    elif menu == "5":
+        def tampilkan_stok():
+            print("="*46)
+            print("N0 | KODE BARANG | NAMA BARANG | JUMLAH STOK |")
+            print("=" * 46)
+            for barang in data_barang:
+                print(
+                    f"{barang['N0']}  | {barang['KODE BARANG']}         | {barang['NAMA BARANG']}     | {barang['JUMLAH STOK']}          |"
+                )
+            print("=" * 46)
+        tampilkan_stok()
+    elif menu == "6":
+        print("SELAMAT DATANG DI MENU TAMBAH BARANG")
+        def tampilkan_stok():
+            print("="*46)
+            print("N0 | KODE BARANG | NAMA BARANG | JUMLAH STOK |")
+            print("=" * 46)
+            for barang in data_barang:
+                print(
+                    f"{barang['N0']}  | {barang['KODE BARANG']}         | {barang['NAMA BARANG']}     | {barang['JUMLAH STOK']}          |"
+                )
+            print("=" * 46)
+
+        # Fungsi untuk menambah barang
+        def tambah_barang():
+            nomor_baru = len(data_barang) + 1
+            kode_barang = input("Masukkan Kode Barang: ")
+            nama_barang = input("Masukkan Nama Barang: ")
+            jumlah_stok = int(input("Masukkan Jumlah Stok: "))
+
+            data_barang.append(
+                {
+                    "N0": nomor_baru,
+                    "KODE BARANG": kode_barang,
+                    "NAMA BARANG": nama_barang,
+                    "JUMLAH STOK": jumlah_stok,
+                }
+            )
+            print("Barang berhasil ditambahkan!")
+        tampilkan_stok()
+        tambah_barang()
+        tampilkan_stok()
+    elif menu == "7":
+        print("SELAMAT DATANG DI MENU UPDATE STOK")
+        def tampilkan_stok():
+            print("="*46)
+            print("N0 | KODE BARANG | NAMA BARANG | JUMLAH STOK |")
+            print("=" * 46)
+            for barang in data_barang:
+                print(
+                    f"{barang['N0']}  | {barang['KODE BARANG']}         | {barang['NAMA BARANG']}     | {barang['JUMLAH STOK']}          |"
+                )
+            print("=" * 46)
+
+        # Fungsi untuk mengupdate stok barang
+        def update_stok():
+            kode_barang = input("Masukkan Kode Barang yang ingin diupdate stoknya: ")
+            jumlah_update = int(input("Masukkan Jumlah Stok yang ingin diupdate: "))
+
+            for barang in data_barang:
+                if barang["KODE BARANG"] == kode_barang:
+                    barang["JUMLAH STOK"] += jumlah_update
+                    print("Stok berhasil diupdate!")
+                    return
+            print("Kode barang tidak ditemukan!")
+        tampilkan_stok()
+        update_stok()
+        tampilkan_stok()
+    elif menu == "8":
+        print("SELAMAT DATANG DI MENU UPDATE NAMA BARANG")
+        def tampilkan_stok():
+            print("="*46)
+            print("N0 | KODE BARANG | NAMA BARANG | JUMLAH STOK |")
+            print("=" * 46)
+            for barang in data_barang:
+                print(
+                    f"{barang['N0']}  | {barang['KODE BARANG']}         | {barang['NAMA BARANG']}     | {barang['JUMLAH STOK']}          |"
+                )
+            print("=" * 46)
+
+        #fungsi update nama barang
+        def update_nama_barang():
+            kode_barang = input("Masukkan Kode Barang yang ingin diupdate namanya: ")
+            nama_update = input("Masukkan nama yang ingin diupdate: ")
+
+            for barang in data_barang:
+                if barang["KODE BARANG"] == kode_barang:
+                    barang["NAMA BARANG"] = nama_update
+                    print("nama berhasil diupdate!")
+                    return
+            print("Kode barang tidak ditemukan!")
+        tampilkan_stok()
+        update_nama_barang()
+        tampilkan_stok()
+    elif menu == "9":
+        print("SELAMAT DATANG DI MENU HAPUS BARANG")
+        def tampilkan_stok():
+            print("="*46)
+            print("N0 | KODE BARANG | NAMA BARANG | JUMLAH STOK |")
+            print("=" * 46)
+            for barang in data_barang:
+                print(
+                    f"{barang['N0']}  | {barang['KODE BARANG']}         | {barang['NAMA BARANG']}     | {barang['JUMLAH STOK']}          |"
+                )
+            print("=" * 46)
+
+        # Fungsi untuk menghapus barang
+        def hapus_barang():
+            kode_barang = input("Masukkan Kode Barang yang ingin dihapus: ")
+
+            for barang in data_barang:
+                if barang["KODE BARANG"] == kode_barang:
+                    data_barang.remove(barang)
+                    print("Barang berhasil dihapus!")
+                    return
+            print("Kode barang tidak ditemukan!")
+        tampilkan_stok()
+        hapus_barang()
+        tampilkan_stok()
+    elif menu == "0":
+        print("TERIMA KASIH!!!")
+        break
+    else:
+        print("MOHON MASUKKAN PILIHAN YANG BENAR!!!")
+
