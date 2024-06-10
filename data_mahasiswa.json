@@ -1,0 +1,26 @@
+[
+    {
+        "nama": "dayat",
+        "nim": "5555",
+        "jurusan": "komputer",
+        "tahun_masuk": "2000",
+        "nilai": [
+            {
+                "uts": 87.0,
+                "uas": 90.0
+            }
+        ]
+    },
+    {
+        "nama": "geni",
+        "nim": "2222",
+        "jurusan": "tehnik",
+        "tahun_masuk": "2021",
+        "nilai": [
+            {
+                "uts": 76.0,
+                "uas": 98.0
+            }
+        ]
+    }
+]
