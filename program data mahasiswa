@@ -1,0 +1,386 @@
+import json
+import tkinter as tk
+from tkinter import messagebox
+
+# Nama file untuk menyimpan data
+nama_file = 'data_mahasiswa.json'
+
+# Fungsi untuk memuat data dari file
+def muat_data():
+    try:
+        with open(nama_file, 'r') as file:
+            data_mahasiswa = json.load(file)
+    except FileNotFoundError:
+        data_mahasiswa = []
+    except json.JSONDecodeError:
+        data_mahasiswa = []
+    return data_mahasiswa
+
+# Fungsi untuk menyimpan data ke file
+def simpan_data(data_mahasiswa):
+    with open(nama_file, 'w') as file:
+        json.dump(data_mahasiswa, file, indent=4)
+
+# Fungsi untuk menambah data mahasiswa
+def tambah_mahasiswa():
+    global data_mahasiswa  # Deklarasi global
+    def simpan():
+        nama = entry_nama.get()
+        nim = entry_nim.get()
+        jurusan = entry_jurusan.get()
+        tahun_masuk = entry_tahun_masuk.get()
+
+        if not nama or not nim or not jurusan or not tahun_masuk:
+            messagebox.showerror("Error", "Semua field harus diisi!")
+            return
+
+        mahasiswa = {
+            'nama': nama,
+            'nim': nim,
+            'jurusan': jurusan,
+            'tahun_masuk': tahun_masuk,
+            'nilai': []
+        }
+
+        data_mahasiswa = muat_data()
+        data_mahasiswa.append(mahasiswa)
+        simpan_data(data_mahasiswa)
+        messagebox.showinfo("Info", "Data mahasiswa berhasil ditambahkan!")
+        window_add.destroy()
+
+    window_add = tk.Toplevel(window)
+    window_add.title("Tambah Mahasiswa")
+
+    label_nama = tk.Label(window_add, text="Nama:")
+    label_nama.grid(row=0, column=0, sticky="w")
+    entry_nama = tk.Entry(window_add)
+    entry_nama.grid(row=0, column=1)
+
+    label_nim = tk.Label(window_add, text="NIM:")
+    label_nim.grid(row=1, column=0, sticky="w")
+    entry_nim = tk.Entry(window_add)
+    entry_nim.grid(row=1, column=1)
+
+    label_jurusan = tk.Label(window_add, text="Jurusan:")
+    label_jurusan.grid(row=2, column=0, sticky="w")
+    entry_jurusan = tk.Entry(window_add)
+    entry_jurusan.grid(row=2, column=1)
+
+    label_tahun_masuk = tk.Label(window_add, text="Tahun Masuk:")
+    label_tahun_masuk.grid(row=3, column=0, sticky="w")
+    entry_tahun_masuk = tk.Entry(window_add)
+    entry_tahun_masuk.grid(row=3, column=1)
+
+    button_simpan = tk.Button(window_add, text="Simpan", command=simpan)
+    button_simpan.grid(row=4, column=0, columnspan=2)
+
+
+# Fungsi untuk menampilkan data mahasiswa
+def tampilkan_mahasiswa():
+    data_mahasiswa = muat_data()
+    if not data_mahasiswa:
+        messagebox.showinfo("Info", "Belum ada data mahasiswa yang ditambahkan.")
+    else:
+        msg = "Data Mahasiswa:\n\n"
+        for mahasiswa in data_mahasiswa:
+            msg += f"Nama: {mahasiswa['nama']}\n"
+            msg += f"NIM: {mahasiswa['nim']}\n"
+            msg += f"Jurusan: {mahasiswa['jurusan']}\n"
+            msg += f"Tahun Masuk: {mahasiswa['tahun_masuk']}\n"
+            msg += f"Nilai: {mahasiswa['nilai']}\n\n"
+        messagebox.showinfo("Data Mahasiswa", msg)
+
+# Fungsi untuk menghapus data mahasiswa
+def hapus_mahasiswa():
+    def hapus():
+        nim = entry_nim.get()
+        data_mahasiswa = muat_data()
+        data_mahasiswa = [m for m in data_mahasiswa if m['nim'] != nim]
+        simpan_data(data_mahasiswa)
+        messagebox.showinfo("Info", f"Mahasiswa dengan NIM {nim} telah dihapus.")
+        window_hapus.destroy()
+
+    window_hapus = tk.Toplevel(window)
+    window_hapus.title("Hapus Mahasiswa")
+
+    label_nim = tk.Label(window_hapus, text="NIM Mahasiswa yang Ingin Dihapus:")
+    label_nim.grid(row=0, column=0, sticky="w")
+    entry_nim = tk.Entry(window_hapus)
+    entry_nim.grid(row=0, column=1)
+
+    button_hapus = tk.Button(window_hapus, text="Hapus", command=hapus)
+    button_hapus.grid(row=1, column=0, columnspan=2)
+
+# Fungsi untuk mencari data mahasiswa
+def cari_mahasiswa():
+    def cari():
+        nim = entry_nim.get()
+        data_mahasiswa = muat_data()
+        hasil = [m for m in data_mahasiswa if m['nim'] == nim]
+        if hasil:
+            msg = "Data Mahasiswa:\n\n"
+            for mahasiswa in hasil:
+                msg += f"Nama: {mahasiswa['nama']}\n"
+                msg += f"NIM: {mahasiswa['nim']}\n"
+                msg += f"Jurusan: {mahasiswa['jurusan']}\n"
+                msg += f"Tahun Masuk: {mahasiswa['tahun_masuk']}\n\n"
+            messagebox.showinfo("Data Mahasiswa", msg)
+        else:
+            messagebox.showinfo("Info", "Mahasiswa tidak ditemukan.")
+
+    window_cari = tk.Toplevel(window)
+    window_cari.title("Cari Mahasiswa")
+
+    label_nim = tk.Label(window_cari, text="NIM Mahasiswa yang Ingin Dicari:")
+    label_nim.grid(row=0, column=0, sticky="w")
+    entry_nim = tk.Entry(window_cari)
+    entry_nim.grid(row=0, column=1)
+
+    button_cari = tk.Button(window_cari, text="Cari", command=cari)
+    button_cari.grid(row=1, column=0, columnspan=2)
+
+# Fungsi untuk mengubah data mahasiswa
+def ubah_mahasiswa():
+    def ubah():
+        nim = entry_nim.get()
+        data_mahasiswa = muat_data()
+        for mahasiswa in data_mahasiswa:
+            if mahasiswa['nim'] == nim:
+                nama_baru = entry_nama.get() or mahasiswa['nama']
+                jurusan_baru = entry_jurusan.get() or mahasiswa['jurusan']
+                tahun_masuk_baru = entry_tahun_masuk.get() or mahasiswa['tahun_masuk']
+
+                mahasiswa['nama'] = nama_baru
+                mahasiswa['jurusan'] = jurusan_baru
+                mahasiswa['tahun_masuk'] = tahun_masuk_baru
+
+                simpan_data(data_mahasiswa)
+                messagebox.showinfo("Info", "Data mahasiswa berhasil diubah.")
+                window_ubah.destroy()
+                return
+        messagebox.showinfo("Info",
+        f"Mahasiswa dengan NIM {nim} tidak ditemukan.")
+
+    window_ubah = tk.Toplevel(window)
+    window_ubah.title("Ubah Mahasiswa")
+
+    label_nim = tk.Label(window_ubah, text="NIM Mahasiswa yang Ingin Diubah:")
+    label_nim.grid(row=0, column=0, sticky="w")
+    entry_nim = tk.Entry(window_ubah)
+    entry_nim.grid(row=0, column=1)
+
+    label_nama = tk.Label(window_ubah, text="Nama Baru:")
+    label_nama.grid(row=1, column=0, sticky="w")
+    entry_nama = tk.Entry(window_ubah)
+    entry_nama.grid(row=1, column=1)
+
+    label_jurusan = tk.Label(window_ubah, text="Jurusan Baru:")
+    label_jurusan.grid(row=2, column=0, sticky="w")
+    entry_jurusan = tk.Entry(window_ubah)
+    entry_jurusan.grid(row=2, column=1)
+
+    label_tahun_masuk = tk.Label(window_ubah, text="Tahun Masuk Baru:")
+    label_tahun_masuk.grid(row=3, column=0, sticky="w")
+    entry_tahun_masuk = tk.Entry(window_ubah)
+    entry_tahun_masuk.grid(row=3, column=1)
+
+    button_ubah = tk.Button(window_ubah, text="Ubah", command=ubah)
+    button_ubah.grid(row=4, column=0, columnspan=2)
+
+# Fungsi untuk menambahkan nilai mahasiswa
+def tambah_nilai(data_mahasiswa):
+    def tambah():
+        nim = entry_nim.get()
+        nilai_uts = float(entry_nilai_uts.get())
+        nilai_uas = float(entry_nilai_uas.get())
+
+        # Temukan mahasiswa berdasarkan NIM
+        for mahasiswa in data_mahasiswa:
+            if mahasiswa['nim'] == nim:
+                # Tambahkan nilai baru
+                mahasiswa['nilai'].append({'uts': nilai_uts, 'uas': nilai_uas})
+                simpan_data(data_mahasiswa)
+                messagebox.showinfo("Info", "Nilai mahasiswa berhasil ditambahkan!")
+                window_nilai.destroy()
+                return
+
+        messagebox.showerror("Error", f"Mahasiswa dengan NIM {nim} tidak ditemukan.")
+
+    window_nilai = tk.Toplevel(window)
+    window_nilai.title("Tambah Nilai Mahasiswa")
+
+    label_nim = tk.Label(window_nilai, text="NIM Mahasiswa:")
+    label_nim.grid(row=0, column=0, sticky="w")
+    entry_nim = tk.Entry(window_nilai)
+    entry_nim.grid(row=0, column=1)
+
+    label_nilai_uts = tk.Label(window_nilai, text="Nilai UTS:")
+    label_nilai_uts.grid(row=1, column=0, sticky="w")
+    entry_nilai_uts = tk.Entry(window_nilai)
+    entry_nilai_uts.grid(row=1, column=1)
+
+    label_nilai_uas = tk.Label(window_nilai, text="Nilai UAS:")
+    label_nilai_uas.grid(row=2, column=0, sticky="w")
+    entry_nilai_uas = tk.Entry(window_nilai)
+    entry_nilai_uas.grid(row=2, column=1)
+
+    button_tambah = tk.Button(window_nilai, text="Tambah", command=tambah)
+    button_tambah.grid(row=3, column=0, columnspan=2)
+
+
+
+
+# Fungsi untuk menghapus nilai mahasiswa
+def hapus_nilai(data_mahasiswa):
+    def hapus():
+        nim = entry_nim.get()
+
+        # Temukan mahasiswa berdasarkan NIM
+        for mahasiswa in data_mahasiswa:
+            if mahasiswa['nim'] == nim:
+                # Hapus nilai mahasiswa
+                mahasiswa['nilai'] = []
+                simpan_data(data_mahasiswa)
+                messagebox.showinfo("Info", "Nilai mahasiswa berhasil dihapus!")
+                window_hapus.destroy()
+                return
+
+        messagebox.showerror("Error", f"Mahasiswa dengan NIM {nim} tidak ditemukan.")
+
+    window_hapus = tk.Toplevel(window)
+    window_hapus.title("Hapus Nilai Mahasiswa")
+
+    label_nim = tk.Label(window_hapus, text="NIM Mahasiswa:")
+    label_nim.grid(row=0, column=0, sticky="w")
+    entry_nim = tk.Entry(window_hapus)
+    entry_nim.grid(row=0, column=1)
+
+    button_hapus = tk.Button(window_hapus, text="Hapus", command=hapus)
+    button_hapus.grid(row=1, column=0, columnspan=2)
+
+# Fungsi untuk mengubah nilai mahasiswa
+def ubah_nilai(data_mahasiswa):
+    def ubah():
+        nim = entry_nim.get()
+        nilai_uts_baru = float(entry_nilai_uts_baru.get())
+        nilai_uas_baru = float(entry_nilai_uas_baru.get())
+
+        # Temukan mahasiswa berdasarkan NIM
+        for mahasiswa in data_mahasiswa:
+            if mahasiswa['nim'] == nim:
+                # Ubah nilai mahasiswa
+                if mahasiswa['nilai']:
+                    mahasiswa['nilai'][-1]['uts'] = nilai_uts_baru
+                    mahasiswa['nilai'][-1]['uas'] = nilai_uas_baru
+                    simpan_data(data_mahasiswa)
+                    messagebox.showinfo("Info", "Nilai mahasiswa berhasil diubah!")
+                    window_ubah.destroy()
+                    return
+                else:
+                    messagebox.showerror("Error", "Nilai mahasiswa tidak ditemukan.")
+                    return
+
+        messagebox.showerror("Error", f"Mahasiswa dengan NIM {nim} tidak ditemukan.")
+
+    window_ubah = tk.Toplevel(window)
+    window_ubah.title("Ubah Nilai Mahasiswa")
+
+    label_nim = tk.Label(window_ubah, text="NIM Mahasiswa:")
+    label_nim.grid(row=0, column=0, sticky="w")
+    entry_nim = tk.Entry(window_ubah)
+    entry_nim.grid(row=0, column=1)
+
+    label_nilai_uts_baru = tk.Label(window_ubah, text="Nilai UTS Baru:")
+    label_nilai_uts_baru.grid(row=1, column=0, sticky="w")
+    entry_nilai_uts_baru = tk.Entry(window_ubah)
+    entry_nilai_uts_baru.grid(row=1, column=1)
+
+    label_nilai_uas_baru = tk.Label(window_ubah, text="Nilai UAS Baru:")
+    label_nilai_uas_baru.grid(row=2, column=0, sticky="w")
+    entry_nilai_uas_baru = tk.Entry(window_ubah)
+    entry_nilai_uas_baru.grid(row=2, column=1)
+
+    button_ubah = tk.Button(window_ubah, text="Ubah", command=ubah)
+    button_ubah.grid(row=3, column=0, columnspan=2)
+
+# Fungsi untuk menghitung nilai akhir mahasiswa
+def hitung_nilai_akhir(data_mahasiswa):
+    def hitung():
+        nim = entry_nim.get()
+
+        # Temukan mahasiswa berdasarkan NIM
+        for mahasiswa in data_mahasiswa:
+            if mahasiswa['nim'] == nim:
+                if mahasiswa['nilai']:
+                    # Hitung nilai akhir
+                    nilai_uts = mahasiswa['nilai'][-1]['uts']
+                    nilai_uas = mahasiswa['nilai'][-1]['uas']
+                    nilai_akhir = (nilai_uts + nilai_uas) / 2
+                    messagebox.showinfo("Info", f"Nilai akhir mahasiswa dengan NIM {nim}: {nilai_akhir}")
+                    return
+                else:
+                    messagebox.showerror("Error", "Nilai mahasiswa tidak ditemukan.")
+                    return
+
+        messagebox.showerror("Error", f"Mahasiswa dengan NIM {nim} tidak ditemukan.")
+
+    window_hitung = tk.Toplevel(window)
+    window_hitung.title("Hitung Nilai Akhir Mahasiswa")
+
+    label_nim = tk.Label(window_hitung, text="NIM Mahasiswa:")
+    label_nim.grid(row=0, column=0, sticky="w")
+    entry_nim = tk.Entry(window_hitung)
+    entry_nim.grid(row=0, column=1)
+
+    button_hitung = tk.Button(window_hitung, text="Hitung", command=hitung)
+    button_hitung.grid(row=1, column=0, columnspan=2)
+
+# Definisi variabel global data_mahasiswa
+data_mahasiswa = []
+
+# Fungsi utama untuk menjalankan program
+def main():
+    global window
+    window = tk.Tk()
+    window.title("Aplikasi Data Mahasiswa")
+    window.geometry("400x300")
+
+    # Memuat data mahasiswa
+    data_mahasiswa = muat_data()
+
+    label_judul = tk.Label(window, text="Data Mahasiswa")
+    label_judul.pack()
+
+    button_tambah = tk.Button(window, text="Tambah Mahasiswa", command=tambah_mahasiswa)
+    button_tambah.pack()
+
+    button_tampilkan = tk.Button(window, text="Tampilkan Data Mahasiswa", command=tampilkan_mahasiswa)
+    button_tampilkan.pack()
+
+    button_hapus = tk.Button(window, text="Hapus Mahasiswa", command=hapus_mahasiswa)
+    button_hapus.pack()
+
+    button_cari = tk.Button(window, text="Cari Mahasiswa", command=cari_mahasiswa)
+    button_cari.pack()
+
+    button_ubah = tk.Button(window, text="Ubah Mahasiswa", command=ubah_mahasiswa)
+    button_ubah.pack()
+
+    button_tambah_nilai = tk.Button(window, text="Tambah Nilai Mahasiswa", command=lambda: tambah_nilai(data_mahasiswa))
+    button_tambah_nilai.pack()
+
+    button_hapus_nilai = tk.Button(window, text="Hapus Nilai Mahasiswa", command=lambda: hapus_nilai(data_mahasiswa))
+    button_hapus_nilai.pack()
+
+    button_ubah_nilai = tk.Button(window, text="Ubah Nilai Mahasiswa", command=lambda: ubah_nilai(data_mahasiswa))
+    button_ubah_nilai.pack()
+
+    button_hitung_nilai_akhir = tk.Button(window, text="Hitung Nilai Akhir Mahasiswa", command=lambda: hitung_nilai_akhir(data_mahasiswa))
+    button_hitung_nilai_akhir.pack()
+
+    window.mainloop()
+
+# Menjalankan program
+if __name__ == "__main__":
+    main()
+
